@@ -33,11 +33,7 @@ def check_input(move):
     if str(move[1]) not in valid_nubmers:
         print("Please do a valid coordinate. Like A1 or B7.")
         return False
-    if major_board.is_board_solved(
-        major_board.give_board_num_from_coords((move[0], int(move[1])))
-    ):
-        print("Yeah so somebody already won that board. No idea who.")
-        return False
+
     if major_board.cell_from_coords((move[0], int(move[1]))) != " ":
         return False
     if (
@@ -46,6 +42,11 @@ def check_input(move):
         != correct_next_board
     ):
         print("So, like, that's the wrong board. Play on the right one please.")
+        return False
+    if major_board.is_board_solved(
+        major_board.give_board_num_from_coords((move[0], int(move[1])))
+    ):
+        print("Yeah so somebody already won that board. No idea who.")
         return False
     move = move[0].upper() + move[1:]
     return [move[0], int(move[1])]
