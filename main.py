@@ -70,6 +70,7 @@ def game_loop():
         major_board.check_game()
         if major_board.is_self_board_solved_or_is_it_not_because_if_it_is_the_game_is_over():
             won = major_board.is_self_board_solved_or_is_it_not_because_if_it_is_the_game_is_over()
+            print(won)
         major_board.print_self()
         correct_next_board = major_board.board_num_from_play(
             (checked_submission[0], checked_submission[1])

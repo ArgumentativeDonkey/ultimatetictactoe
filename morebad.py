@@ -40,7 +40,6 @@ class MajorBoard:
         for board in self.boards:
             if not not board.check_self():
                 winner = board.check_self()
-                print(f"{winner} has won a board.")
                 self.wins[inc] = winner
             inc += 1
 
