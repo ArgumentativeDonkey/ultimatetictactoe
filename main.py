@@ -36,9 +36,7 @@ def check_input(move):
     if major_board.is_board_solved(
         major_board.give_board_num_from_coords((move[0], int(move[1])))
     ):
-        print(
-            "Yeah so somebody already won that board. No idea who. Oh wait that's not good. You shouldn't be seeing this. "
-        )
+        print("Yeah so somebody already won that board. No idea who.")
         return False
     if major_board.cell_from_coords((move[0], int(move[1]))) != " ":
         return False
@@ -56,6 +54,7 @@ def check_input(move):
 def game_loop():
     global turn
     global correct_next_board
+    global won
     print(f"{turn}'s move. {major_board.give_cool_little_hint(correct_next_board)}")
     move = input("Please enter coordinate move: ")
     if move[0]:
