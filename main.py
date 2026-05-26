@@ -23,18 +23,22 @@ valid_nubmers = "123456789"
 def check_input(move):
 
     if len(move) != 2:
-        print("invalid len")
+        print(
+            "Please do a valid coordinate. Like A1 or B7. Don't add anything else. Or remove anything I suppose."
+        )
         return False  # noqa: E701
     if str(move[0]).upper() not in valid_letters:
-        print("invalid letter")
+        print("Please do a valid coordinate. Like A1 or B7.")
         return False  # noqa: E701
     if str(move[1]) not in valid_nubmers:
-        print("invalid number")
+        print("Please do a valid coordinate. Like A1 or B7.")
         return False
     if major_board.is_board_solved(
         major_board.give_board_num_from_coords((move[0], int(move[1])))
     ):
-        print("board is already won")
+        print(
+            "Yeah so somebody already won that board. No idea who. Oh wait that's not good. You shouldn't be seeing this. "
+        )
         return False
     if major_board.cell_from_coords((move[0], int(move[1]))) != " ":
         return False
@@ -43,6 +47,7 @@ def check_input(move):
         and major_board.give_board_num_from_coords((move[0], int(move[1])))
         != correct_next_board
     ):
+        print("So, like, that's the wrong board. Play on the right one please.")
         return False
     move = move[0].upper() + move[1:]
     return [move[0], int(move[1])]
@@ -53,10 +58,13 @@ def game_loop():
     global correct_next_board
     print(f"{turn}'s move. {major_board.give_cool_little_hint(correct_next_board)}")
     move = input("Please enter coordinate move: ")
+    if move[0]:
+        move = move[0].upper() + move[1:]
+    print("")
     submission = move
     checked_submission = check_input(submission)
     if not checked_submission:
-        print("Invalid move")
+        pass
     else:
         major_board.change_cell(checked_submission[0], checked_submission[1], turn)
         major_board.check_game()
@@ -64,6 +72,8 @@ def game_loop():
         correct_next_board = major_board.board_num_from_play(
             (checked_submission[0], checked_submission[1])
         )
+        if major_board.is_board_solved(correct_next_board):
+            correct_next_board = None
         if turn == "A":
             turn = "B"
         else:
